@@ -1,0 +1,21 @@
+Source: overcast-monolith
+Section: admin
+Priority: optional
+Maintainer: Soren Hansen <Soren.Hansen@ril.com>
+Build-Depends: debhelper (>= 7),
+               python-all (>= 2.6.6-3~),
+               python-pbr (>= 0.6),
+               python-setuptools,
+               python-sphinx,
+               python-prettytable,
+               python-dev
+Standards-Version: 3.9.2
+
+Package: overcast-monolith
+Architecture: any
+Replaces: ${overcast:superseded_pkgs}
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${python:Depends}
+Description: Monolithic Overcast deb package
+ A monolithic package containing all the software (and their dependencies)
+ needed for Overcast.
+

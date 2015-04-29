@@ -1,0 +1,62 @@
+#!/usr/bin/make -f
+
+export DH_VERBOSE=1
+
+SHELL := sh -e
+
+PROJECTS := $(filter-out debian, $(wildcard *))
+UPSTART_JOBS := $(wildcard debian/*.upstart)
+SERVERS := $(subst .upstart,,$(subst debian/,,$(UPSTART_JOBS)))
+
+# Override upstream's pbr based packaging
+export PBR_VERSION=2014.2
+export SKIP_PIP_INSTALL=1
+export SKIP_GIT_SDIST=1
+export SKIP_GENERATE_AUTHORS=1
+export SKIP_WRITE_GIT_CHANGELOG=1
+
+export DIST=$(shell dpkg-parsechangelog  | grep ^Distribution: | cut -d ' ' -f2)
+export VERSION=1:$(PBR_VERSION)
+
+
+%:
+	dh $@ --with python2
+
+override_dh_auto_clean: debian/control $(patsubst %,clean/%,$(PROJECTS))
+
+override_dh_auto_build: debian/control $(patsubst %,build/%,$(PROJECTS))
+
+override_dh_auto_install: debian/control $(patsubst %,install/%,$(PROJECTS)) debian/overcast-monolith.substvars
+
+clean/%: %/debian
+	cd $* && dh_auto_clean
+
+build/%: %/debian
+	cd $* && dh_auto_build
+
+install/%: %/debian
+	cd $* && dh_auto_install
+
+%/debian:
+	ln -s ../debian $@
+
+debian/overcast-monolith.substvars:
+	python -c 'import sys;print "overcast:superseded_packages="+", ".join(sys.argv[1:])' $$(cat debian/superseded-packages) >> debian/overcast-monolith.substvars
+
+debian/control: debian/control.stub $(patsubst %,debian/%.control,$(SERVERS) $(shell cat debian/superseded-packages))
+	cat $^ > $@
+
+debian/%.control: debian/control.tmpl
+	sed -e s@PKGNAME@$*@g < $< > $@
+
+debian/manifest:
+	mv -f debian/manifest debian/manifest.old || true
+	repo forall -c 'echo -n "$${REPO_PROJECT} " ; git rev-parse HEAD' > $@
+
+debian/chlog:
+	# Populate changelog here as clean target will be run.
+	dch --newversion $(VERSION).$(BUILD_NUMBER) "Automated build rules"
+	cat debian/changelog.git | while IFS= read line; do dch "$(line)"; done
+	dch -D $(DIST) -r ""
+
+.PHONY: debian/control debian/overcast-monolit.substvars debian/chlog
