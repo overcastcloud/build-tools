@@ -41,7 +41,7 @@ install/%: %/debian
 	ln -s ../debian $@
 
 debian/overcast-monolith.substvars:
-	python -c 'import sys;print "overcast:superseded_packages="+", ".join(sys.argv[1:])' $$(cat debian/superseded-packages) >> debian/overcast-monolith.substvars
+	python -c 'import sys;print "overcast:supersededpackages="+", ".join(sys.argv[1:])' $$(cat debian/superseded-packages) >> debian/overcast-monolith.substvars
 
 debian/control: debian/control.stub $(patsubst %,debian/%.control,$(SERVERS) $(shell cat debian/superseded-packages))
 	cat $^ > $@
@@ -50,13 +50,13 @@ debian/%.control: debian/control.tmpl
 	sed -e s@PKGNAME@$*@g < $< > $@
 
 debian/manifest:
-	mv -f debian/manifest debian/manifest.old || true
+	mv -f debian/manifest debian/manifest.old || touch debian/manifest.old
 	repo forall -c 'echo -n "$${REPO_PROJECT} " ; git rev-parse HEAD' > $@
 
 debian/chlog:
 	# Populate changelog here as clean target will be run.
-	dch --newversion $(VERSION).$(BUILD_NUMBER) "Automated build rules"
-	cat debian/changelog.git | while IFS= read line; do dch "$(line)"; done
+	dch --newversion $(VERSION).$(BUILD_NUMBER) "Automated build"
+#	cat debian/changelog.git | while IFS= read line; do dch "$(line)"; done
 	dch -D $(DIST) -r ""
 
-.PHONY: debian/control debian/overcast-monolit.substvars debian/chlog
+.PHONY: debian/control debian/overcast-monolit.substvars debian/chlog debian/manifest

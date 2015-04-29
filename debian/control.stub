@@ -13,7 +13,7 @@ Standards-Version: 3.9.2
 
 Package: overcast-monolith
 Architecture: any
-Replaces: ${overcast:superseded_pkgs}
+Replaces: ${overcast:supersededpackages}
 Depends: ${shlibs:Depends}, ${misc:Depends}, ${python:Depends}
 Description: Monolithic Overcast deb package
  A monolithic package containing all the software (and their dependencies)
