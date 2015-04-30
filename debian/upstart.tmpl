@@ -1,0 +1,31 @@
+description "%DAEMON%"
+author "Thomas Goirand <zigo@debian.org>"
+
+start on runlevel [2345]
+stop on runlevel [!2345]
+
+chdir /var/run
+
+respawn
+limit nofile 65535 65535
+
+pre-start script
+	for i in lock run log lib ; do
+		mkdir -p /var/$i/%BASENAME%
+		chown %BASENAME% /var/$i/%BASENAME%
+	done
+end script
+
+script
+	[ -x "/usr/bin/%DAEMON%" ] || exit 0
+	DAEMON_ARGS=""
+	[ -r /etc/default/openstack ] && . /etc/default/openstack
+	[ -r /etc/default/$UPSTART_JOB ] && . /etc/default/$UPSTART_JOB
+	[ "x$USE_SYSLOG" = "xyes" ] && DAEMON_ARGS="$DAEMON_ARGS --use-syslog"
+	[ "x$USE_LOGFILE" != "xno" ] && DAEMON_ARGS="$DAEMON_ARGS --log-file=/var/log/%BASENAME%/%DAEMON%.log"
+
+	exec start-stop-daemon --start --chdir /var/lib/%BASENAME% \
+		--chuid %BASENAME%:%BASENAME% --make-pidfile --pidfile /var/run/%BASENAME%/%DAEMON%.pid \
+		--exec /usr/bin/%DAEMON% -- --config-file=/etc/%BASENAME%/%BASENAME%.conf ${DAEMON_ARGS}
+end script
+

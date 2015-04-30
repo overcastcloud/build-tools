@@ -1,0 +1,15 @@
+nova-api-ec2
+nova-api-metadata
+nova-api-os-compute
+nova-api
+nova-cert
+nova-compute
+nova-conductor
+nova-consoleauth
+nova-console
+nova-network
+nova-novncproxy
+nova-objectstore
+nova-scheduler
+nova-serialproxy
+nova-spiceproxy

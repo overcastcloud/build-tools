@@ -4,19 +4,18 @@ export DH_VERBOSE=1
 
 SHELL := sh -e
 
-PROJECTS := $(filter-out debian, $(wildcard *))
-UPSTART_JOBS := $(wildcard debian/*.upstart)
-SERVERS := $(subst .upstart,,$(subst debian/,,$(UPSTART_JOBS)))
+PROJECTS := $(filter-out debian Makefile tools pool, $(wildcard *))
+SERVERS := $(shell cat debian/servers)
 
 # Override upstream's pbr based packaging
-export PBR_VERSION=2014.2
+export PBR_VERSION=$(BUILD_NUMBER)
 export SKIP_PIP_INSTALL=1
 export SKIP_GIT_SDIST=1
 export SKIP_GENERATE_AUTHORS=1
 export SKIP_WRITE_GIT_CHANGELOG=1
 
 export DIST=$(shell dpkg-parsechangelog  | grep ^Distribution: | cut -d ' ' -f2)
-export VERSION=1:$(PBR_VERSION)
+export VERSION=$(BUILD_NUMBER)
 
 
 %:
@@ -26,7 +25,19 @@ override_dh_auto_clean: debian/control $(patsubst %,clean/%,$(PROJECTS))
 
 override_dh_auto_build: debian/control $(patsubst %,build/%,$(PROJECTS))
 
-override_dh_auto_install: debian/control $(patsubst %,install/%,$(PROJECTS)) debian/overcast-monolith.substvars
+override_dh_auto_install: debian/control $(patsubst %,debian/%.upstart,$(SERVERS)) $(patsubst %,install/%,$(PROJECTS)) debian/overcast-monolith.substvars
+
+override_dh_builddeb: pool
+	dh_builddeb --destdir=$(PWD)/pool
+
+pool:
+	test -d pool || mkdir pool 
+
+debian/%.upstart: debian/upstart.tmpl
+	daemon=$*; \
+	basename=$${daemon%-*}; \
+	sed -e "s,%BASENAME%,$$basename,g" \
+	    -e "s,%DAEMON%,$$daemon,g" $< > $@
 
 clean/%: %/debian
 	cd $* && dh_auto_clean
@@ -36,6 +47,10 @@ build/%: %/debian
 
 install/%: %/debian
 	cd $* && dh_auto_install
+
+# Special cases
+install/horizon: horizon/debian
+	cd horizon && COMPILE=--install-layout=deb dh_auto_install
 
 %/debian:
 	ln -s ../debian $@
@@ -55,8 +70,7 @@ debian/manifest:
 
 debian/chlog:
 	# Populate changelog here as clean target will be run.
-	dch --newversion $(VERSION).$(BUILD_NUMBER) "Automated build"
-#	cat debian/changelog.git | while IFS= read line; do dch "$(line)"; done
+	dch --newversion $(VERSION) "Automated build"
 	dch -D $(DIST) -r ""
 
 .PHONY: debian/control debian/overcast-monolit.substvars debian/chlog debian/manifest
