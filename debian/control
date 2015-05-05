@@ -13,9 +13,337 @@ Standards-Version: 3.9.2
 
 Package: overcast-monolith
 Architecture: any
-Replaces: ${overcast:superseded_pkgs}
+Replaces: ${overcast:supersededpackages}
 Depends: ${shlibs:Depends}, ${misc:Depends}, ${python:Depends}
 Description: Monolithic Overcast deb package
  A monolithic package containing all the software (and their dependencies)
  needed for Overcast.
+
+Package: nova-api-ec2
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: nova-api-ec2 - transitional package
+ Automatically generated transitional nova-api-ec2 package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: nova-api-metadata
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: nova-api-metadata - transitional package
+ Automatically generated transitional nova-api-metadata package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: nova-api-os-compute
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: nova-api-os-compute - transitional package
+ Automatically generated transitional nova-api-os-compute package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: nova-api
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: nova-api - transitional package
+ Automatically generated transitional nova-api package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: nova-cert
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: nova-cert - transitional package
+ Automatically generated transitional nova-cert package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: nova-compute
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: nova-compute - transitional package
+ Automatically generated transitional nova-compute package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: nova-conductor
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: nova-conductor - transitional package
+ Automatically generated transitional nova-conductor package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: nova-consoleauth
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: nova-consoleauth - transitional package
+ Automatically generated transitional nova-consoleauth package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: nova-console
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: nova-console - transitional package
+ Automatically generated transitional nova-console package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: nova-network
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: nova-network - transitional package
+ Automatically generated transitional nova-network package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: nova-novncproxy
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: nova-novncproxy - transitional package
+ Automatically generated transitional nova-novncproxy package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: nova-objectstore
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: nova-objectstore - transitional package
+ Automatically generated transitional nova-objectstore package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: nova-scheduler
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: nova-scheduler - transitional package
+ Automatically generated transitional nova-scheduler package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: nova-serialproxy
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: nova-serialproxy - transitional package
+ Automatically generated transitional nova-serialproxy package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: nova-spiceproxy
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: nova-spiceproxy - transitional package
+ Automatically generated transitional nova-spiceproxy package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: ironic-common
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: ironic-common - transitional package
+ Automatically generated transitional ironic-common package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: python-cinderclient
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: python-cinderclient - transitional package
+ Automatically generated transitional python-cinderclient package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: python-glanceclient
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: python-glanceclient - transitional package
+ Automatically generated transitional python-glanceclient package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: python-ironic
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: python-ironic - transitional package
+ Automatically generated transitional python-ironic package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: python-ironicclient
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: python-ironicclient - transitional package
+ Automatically generated transitional python-ironicclient package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: python-keystoneclient
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: python-keystoneclient - transitional package
+ Automatically generated transitional python-keystoneclient package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: python-keystonemiddleware
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: python-keystonemiddleware - transitional package
+ Automatically generated transitional python-keystonemiddleware package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: python-neutronclient
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: python-neutronclient - transitional package
+ Automatically generated transitional python-neutronclient package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: python-novaclient
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: python-novaclient - transitional package
+ Automatically generated transitional python-novaclient package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: python-oslo.concurrency
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: python-oslo.concurrency - transitional package
+ Automatically generated transitional python-oslo.concurrency package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: python-oslo-config
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: python-oslo-config - transitional package
+ Automatically generated transitional python-oslo-config package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: python-oslo-context
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: python-oslo-context - transitional package
+ Automatically generated transitional python-oslo-context package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: python-oslo.config
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: python-oslo.config - transitional package
+ Automatically generated transitional python-oslo.config package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: python-oslo.context
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: python-oslo.context - transitional package
+ Automatically generated transitional python-oslo.context package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: python-oslo.db
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: python-oslo.db - transitional package
+ Automatically generated transitional python-oslo.db package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: python-oslo.log
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: python-oslo.log - transitional package
+ Automatically generated transitional python-oslo.log package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: python-oslo.messaging
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: python-oslo.messaging - transitional package
+ Automatically generated transitional python-oslo.messaging package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: python-posix-ipc
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: python-posix-ipc - transitional package
+ Automatically generated transitional python-posix-ipc package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: python-proliantutils
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: python-proliantutils - transitional package
+ Automatically generated transitional python-proliantutils package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: python-retrying
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: python-retrying - transitional package
+ Automatically generated transitional python-retrying package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: python-swiftclient
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: python-swiftclient - transitional package
+ Automatically generated transitional python-swiftclient package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: python-tempest-lib
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: python-tempest-lib - transitional package
+ Automatically generated transitional python-tempest-lib package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: python-websockify
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: python-websockify - transitional package
+ Automatically generated transitional python-websockify package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: python-stevedore
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: python-stevedore - transitional package
+ Automatically generated transitional python-stevedore package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: python-six
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: python-six - transitional package
+ Automatically generated transitional python-six package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
+
+Package: python3-six
+Architecture: all
+Depends: overcast-monolith (=${binary:Version})
+Description: python3-six - transitional package
+ Automatically generated transitional python3-six package. All the actual code is
+ in overcast-monolith, but to satisfy other packages' dependencies
+ (particularly versioned dependencies), this package has to exist.
 
