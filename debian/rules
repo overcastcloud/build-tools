@@ -27,17 +27,17 @@ override_dh_auto_build: debian/control $(patsubst %,build/%,$(PROJECTS))
 
 override_dh_auto_install: debian/control $(patsubst %,debian/%.upstart,$(SERVERS)) $(patsubst %,install/%,$(PROJECTS)) debian/overcast-monolith.substvars
 
-override_dh_builddeb: pool
-	dh_builddeb --destdir=$(PWD)/pool
-
-pool:
-	test -d pool || mkdir pool 
-
 debian/%.upstart: debian/upstart.tmpl
 	daemon=$*; \
 	basename=$${daemon%-*}; \
 	sed -e "s,%BASENAME%,$$basename,g" \
 	    -e "s,%DAEMON%,$$daemon,g" $< > $@
+
+
+ifdef DEBDESTDIR
+override_dh_builddeb:
+	dh_builddeb --destdir=$(DEBDESTDIR)
+endif
 
 clean/%: %/debian
 	cd $* && dh_auto_clean
