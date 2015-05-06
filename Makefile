@@ -1,15 +1,23 @@
 #!/usr/bin/make -f
 
-export DEBDESTDIR=$(PWD)/pool
-ifeq ($(REBUILD),1)
-NOCLEAN=-nc
+ifeq ($(NOCLEAN),1)
+NOCLEAN_ARG=-nc
 endif
 
-all: overcast-monolith pool/Packages
+SUBDIRS=overcast-monolith contrail
 
-overcast-monolith: pool
-	test -n "$(BUILD_NUMBER)" || (echo '$$BUILD_NUMBER must be set' ; exit 1)
-	cd $@ ; dpkg-buildpackage -b $(NOCLEAN) --changes-option=-u$(DEBDESTDIR)
+local: $(patsubst %,local-%,$(SUBDIRS)) pool/Packages
+
+source: $(patsubst %,source-%,$(SUBDIRS))
+
+local-%: pool %
+	cd $* ; DEBDESTDIR=$(PWD)/pool dpkg-buildpackage -b $(NOCLEAN_ARG) --changes-option=-u$(PWD)/pool -uc -us
+
+source-%:
+	cd $* ; dpkg-buildpackage -S $(NOCLEAN_ARG) -uc -us
+
+source-contrail:
+	cd contrail; make -f packages.make source-package-contrail KEYID='"" -uc -us'
 
 pool:
 	test -d pool || mkdir pool
@@ -21,4 +29,4 @@ clean:
 	rm pool/* || true
 	fakeroot debian/rules clean
 
-.PHONY: pool/Packages overcast-monolith
+.PHONY: pool/Packages overcast-monolith $(patsubst %,%.local,$(SUBDIRS))
