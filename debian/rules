@@ -8,14 +8,13 @@ PROJECTS := $(filter-out debian Makefile tools pool, $(wildcard *))
 SERVERS := $(shell cat debian/servers)
 
 # Override upstream's pbr based packaging
-export PBR_VERSION=$(BUILD_NUMBER)
+export PBR_VERSION=$(shell dpkg-parsechangelog  | grep ^Version: | cut -d ' ' -f2)
 export SKIP_PIP_INSTALL=1
 export SKIP_GIT_SDIST=1
 export SKIP_GENERATE_AUTHORS=1
 export SKIP_WRITE_GIT_CHANGELOG=1
 
 export DIST=$(shell dpkg-parsechangelog  | grep ^Distribution: | cut -d ' ' -f2)
-export VERSION=$(BUILD_NUMBER)
 
 
 %:
@@ -70,7 +69,7 @@ debian/manifest:
 
 debian/chlog:
 	# Populate changelog here as clean target will be run.
-	dch --newversion $(VERSION) "Automated build"
+	dch --newversion $(BUILD_NUMBER) "Automated build"
 	dch -D $(DIST) -r ""
 
 .PHONY: debian/control debian/overcast-monolit.substvars debian/chlog debian/manifest
